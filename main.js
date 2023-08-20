@@ -2,6 +2,31 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
 
+
+
+
+//Image
+class Image {
+    constructor(imagePath,xpod,ypos ,width, height){
+        this.imagePath=imagePath;
+        this.xPos= xpod ;
+        this.yPos= ypos;
+        this.height=height;
+        this.width= width;
+
+    }
+}
+function createImage(cotexte,imagePath,cpos,ypos,width,hright){
+    let myImage = document.createElement('img');
+    myImage.src = imagePath;
+    myImage.onload= function(){
+        context.drawImage(this, cpos, ypos, width, hright);
+    };
+    }
+let image = new Image('car.png',50,50,100,100);
+createImage(ctx,'car.png' ,234,-687 );
+//
+
 const treeImage = new Image();
 treeImage.src = "maxresdefault.png";
 
@@ -77,53 +102,57 @@ document.addEventListener("keyup", (event) => {
 // Update function
 function update() {
   // Clear canvas
-  ctx.clearRect(0,0, canvas.width, canvas.height);
+    ctx.clearRect(0,0, canvas.width, canvas.height);
 
   // Update car position based on controls
-  if (upPressed) {
+    if (upPressed) {
     carY -= 2;
-  } else if (downPressed) {
+    } else if (downPressed) {
     carY += 2;
-  } else if (leftPressed) {
+    } else if (leftPressed) {
     carX -= 2;
-  } else if (rightPressed) {
+    } else if (rightPressed) {
     carX += 2;
-  }
+    }
 
   // Draw car
-  ctx.fillStyle = "blue";
-  ctx.fillRect(carX, carY, carWidth, carHeight);
+    ctx.fillStyle = "blue";
+    ctx.fillRect(carX, carY, carWidth, carHeight);
 
   // Draw trees
-  ctx.fillStyle = "green";
-  trees.forEach(tree => {
+    ctx.fillStyle = "green";
+    trees.forEach(tree => {
     ctx.fillRect(tree.x, tree.y, treeWidth, treeHeight);
-  });
+    });
 
   // Draw finish line
-  ctx.fillStyle = "red";
-  ctx.fillRect(10, finishLineY, canvas.width, 5);
+    ctx.fillStyle = "red";
+    ctx.fillRect(10, finishLineY, canvas.width, 5);
 
   // Check for collisions with trees
-  trees.forEach(tree => {
+    trees.forEach(tree => {
     if (
-      carX < tree.x + treeWidth &&
-      carX + carWidth > tree.x &&
-      carY < tree.y + treeHeight &&
-      carY + carHeight > tree.y
+        carX < tree.x + treeWidth &&
+        carX + carWidth > tree.x &&
+        carY < tree.y + treeHeight &&
+        carY + carHeight > tree.y
     ) {
-      alert("Game Over! You hit a tree.");
-      document.location.reload();
+        alert("Game Over! You hit a tree.");
+        document.location.reload();
     }
-  });
+    });
 
   // Check if car crossed the finish line
-  if (carY < finishLineY) {
+    if (carY < finishLineY) {
     alert("Congratulations! You crossed the finish line.");
     document.location.reload();
-  }
+    }
 
-  requestAnimationFrame(update);
+    requestAnimationFrame(update);
 }
 
 update();
+
+
+
+
